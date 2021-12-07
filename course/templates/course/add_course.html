@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Course</title>
+</head>
+<body style="margin: 0">
+
+    <div style="text-align: center; background-color: antiquewhite;font-size: 25px">The Music Family site</div>
+    {% if request.session.username %}
+        <div style="margin: 0px; width: 100%; background-color: aquamarine;">
+            <p style="margin: auto; padding-left: 20px; font-size: 18px">
+             Welcome, {{request.session.username}}<a href="/user/logout" style="padding-left: 20px">Log Out</a>
+            </p>
+        </div>
+
+    {% endif %}
+
+
+
+    <div style="text-align: center">
+
+    <form action="/course/add" method="post">
+        <p>
+            Course Title: <input type="text" name="title">
+            <input type="submit" value="Add">
+        </p>
+        <p>
+{#            Instrument: <input type="text" name="instrument">#}
+            <label for="instrument">Instrument:</label>
+            <select name="instrument">
+                <option value="bass">bass</option>
+                <option value="cello">cello</option>
+                <option value="clarinet">clarinet</option>
+                <option value="drum">drum</option>
+                <option value="flute">flute</option>
+                <option value="guitar">guitar</option>
+                <option value="piano">piano</option>
+                <option value="trumpet">trumpet</option>
+                <option value="violin">violin</option>
+                <option value="viola">viola</option>
+            </select>
+        </p>
+        <p>
+            <label for="level">Choose course level</label>
+            <select name="level">
+                <option value="beginner">beginner</option>
+                <option value="intermediate">intermediate</option>
+                <option value="performer">performer</option>
+                <option value="master">master</option>
+            </select>
+        </p>
+        <p>
+            Content: <textarea cols="30" rows="10" name="content"></textarea>
+        </p>
+        <p>
+            Price: <input type="number", name="price">
+        </p>
+        <p>
+            Location: <input type="text" name="location">
+        </p>
+        <p>
+{#            Certification: <input type="text" name="certifi">#}
+            <label for="certifi">Certification</label>
+            <select name="certifi">
+                <option value="Yes">yes</option>
+                <option value="No">no</option>
+            </select>
+        </p>
+    </form>
+    <button onclick="location.href = '/course/all'">Back</button>
+    </div>
+</body>
+</html>
