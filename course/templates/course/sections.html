@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Course Sections</title>
+</head>
+<body style="margin: 0">
+<div style="text-align: center; background-color: antiquewhite;font-size: 25px">The Music Family site</div>
+    {% if request.session.username %}
+        <div style="margin: 0px; width: 100%; background-color: aquamarine;">
+            <p style="margin: auto; padding-left: 20px; font-size: 18px">
+             Welcome, {{request.session.username}}<a href="/user/logout" style="padding-left: 20px">Log Out</a>
+            </p>
+        </div>
+
+    {% endif %}
+    <br>
+    <div style="padding-left: 20px">
+        messages:
+        {% for message in messages %}
+        <li><a href="/course/view_message?message_id={{ message.id }}">{{ message.title }}</a></li>
+        {% endfor %}
+    </div>
+
+    <br><br><br><br><br><br><br><br><br>
+    <table style="margin: auto; text-align: center">
+        <tr>
+            <td>
+{#                {% load static %}#}
+{#                <img src="{% static 'course/cello.png' %}">#}
+                <div style="border: solid 2px black; border-radius: 5px;width: 200px"><a href="/course/view_section?instrument=bass">bass</a></div>
+            </td>
+            <td>
+               <div style="border: solid 2px black; border-radius: 5px;width: 200px"> <a href="/course/view_section?instrument=cello">cello</a></div>
+            </td>
+            <td>
+                <div style="border: solid 2px black; border-radius: 5px;width: 200px"><a href="/course/view_section?instrument=clarinet">clarinet</a></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div style="border: solid 2px black; border-radius: 5px;width: 200px"><a href="/course/view_section?instrument=clarinet">clarinet</a></div>
+            </td>
+            <td>
+                <div style="border: solid 2px black; border-radius: 5px;width: 200px"><a href="/course/view_section?instrument=drum">drum</a></div>
+            </td>
+            <td>
+                <div style="border: solid 2px black; border-radius: 5px;width: 200px"><a href="/course/view_section?instrument=flute">flute</a></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div style="border: solid 2px black; border-radius: 5px;width: 200px"><a href="/course/view_section?instrument=guitar">guitar</a></div>
+            </td>
+            <td>
+                <div style="border: solid 2px black; border-radius: 5px;width: 200px"><a href="/course/view_section?instrument=piano">piano</a></div>
+            </td>
+            <td>
+                <div style="border: solid 2px black; border-radius: 5px;width: 200px"><a href="/course/view_section?instrument=trumpet">trumpet</a></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div style="border: solid 2px black; border-radius: 5px;width: 200px"><a href="/course/view_section?instrument=violin">violin</a></div>
+            </td>
+            <td>
+                <div style="border: solid 2px black; border-radius: 5px;width: 200px"><a href="/course/view_section?instrument=viola">viola</a></div>
+            </td>
+            <td>
+               <div style="border: solid 2px black; border-radius: 5px;width: 200px"><a href="/course/all">All</a></div>
+            </td>
+        </tr>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

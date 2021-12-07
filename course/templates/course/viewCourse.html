@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ course.title }}</title>
+</head>
+<body style="margin: 0">
+
+    <div style="text-align: center; background-color: antiquewhite;font-size: 25px;">The Music Family site</div>
+    {% if request.session.username %}
+        <div style="margin: 0px; width: 100%; background-color: aquamarine;">
+            <p style="margin: auto; padding-left: 20px; font-size: 18px">
+             Welcome, {{request.session.username}}<a href="/user/logout" style="padding-left: 20px">Log Out</a>
+            </p>
+        </div>
+
+    {% endif %}
+
+
+
+
+    <div style="text-align: center">
+        <h2>{{ course.title }} <button onclick="location.href = '/course/send_message?course_id={{ course.id }}'">Send Message</button></h2>
+
+        <table style="margin: auto"; width="100%">
+            <tr>
+                <th style="padding-left: 15px; padding-right: 15px">Instrument</th>
+                <th style="padding-left: 15px; padding-right: 15px">level</th>
+                <th style="padding-left: 15px; padding-right: 15px">Instructor</th>
+                <th style="padding-left: 15px; padding-right: 15px">Price</th>
+                <th style="padding-left: 15px; padding-right: 15px">Location</th>
+            </tr>
+            <tr>
+                <td style="padding-left: 15px; padding-right: 15px">{{ course.instrument }}</td>
+                <td style="padding-left: 15px; padding-right: 15px">{{ course.level }}</td>
+                <td style="padding-left: 15px; padding-right: 15px">{{ course.user.username }}</td>
+                <td style="padding-left: 15px; padding-right: 15px">${{ course.price }}/h</td>
+                <td style="padding-left: 15px; padding-right: 15px">{{ course.location }}</td>
+            </tr>
+        </table>
+        <div>
+           <h4>Course Content:</h4>
+            <p>
+                {{ course.content }}
+            </p>
+        </div>
+        <button onclick="location.href = '/course/view_section?instrument={{ course.instrument }}'">Back to {{ course.instrument }}</button>
+        <button onclick="location.href = '/course/all'">Back to All Courses</button>
+    </div>
+
+    <br><br><br><br><br><br><br><br>
+    <div>
+        <h4 style="padding-left: 20px">Comments</h4>
+        <p style="padding-left: 20px">
+            <form action="/course/add_comment?course_id={{ course_id }}" method="post"  style="padding-left: 20px">
+                <input type="text" name="comment">
+                <input type="submit" value="Add Comment">
+            </form>
+
+        </p>
+        <hr>
+        {% for comment in comments reversed %}
+            <table style="padding-left: 20px">
+            <tr>
+                <td style="padding-right: 30px">{{ comment.content }}</td>
+                <td style="color: #3a55b6; padding-right: 50px;"> by: {{ comment.user.username }}</td>
+                <td style="font-size: 12px; color: #b5b6b5"> created time: {{ comment.create_time }}</td>
+            </tr>
+            </table>
+            <br>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+</head>
+<body style="text-align: center">
+<div style="margin-top: 200px">
+    <h2>The Music Family Site</h2>
+    {% if request.session.username %}
+        <p>
+            Welcome, {{request.session.username}}
+        </p>
+        <p>
+            <a href="/user/logout" style="padding-right: 30px">Log Out</a>
+            <a href="/course/add">Add New Course</a>
+        </p>
+
+    {% else %}
+        <a href="/user/login"  style="padding-right: 30px">Login</a>
+        <a href="/user/reg">Sign Up</a>
+    {% endif %}
+</div>
+
+</body>
+</html>

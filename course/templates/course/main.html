@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+</head>
+<body style="margin: 0">
+
+    <div style="text-align: center; background-color: antiquewhite;font-size: 25px">The Music Family site</div>
+    {% if request.session.username %}
+        <div style="margin: 0px; width: 100%; background-color: aquamarine;">
+            <p style="margin: auto; padding-left: 20px; font-size: 18px">
+             Welcome, {{request.session.username}}<a href="/user/logout" style="padding-left: 20px">Log Out</a>
+            </p>
+        </div>
+
+    {% endif %}
+
+
+
+
+    <div style="text-align: center">
+
+    {% if request.session.username %}
+        <p style="">
+            Welcome to the {{ instrument }} section
+        </p>
+        <p>
+
+            <a href="/course/add">Add New Course</a>
+            <button onclick="location.href = '/course/section'">Back to Sections</button>
+        </p>
+
+    {% endif %}
+
+    <form action="/course/view_section_filter?instrument={{ instrument }}" method="post">
+        <p>
+            <label for="level">Course level</label>
+            <select name="level">
+                <option value="beginner" {% if level == 'beginner' %}selected{% endif %}>beginner</option>
+                <option value="intermediate" {% if level == 'intermediate' %}selected{% endif %}>intermediate</option>
+                <option value="performer" {% if level == 'performer' %}selected{% endif %}>performer</option>
+                <option value="master" {% if level == 'master' %}selected{% endif %}>master</option>
+            </select>
+            <input type="submit" value="Search">
+        </p>
+        <p>
+{#            Certification: <input type="text" name="certifi">#}
+            <label for="certifi">Certification</label>
+            <select name="certifi">
+                <option value="Yes" {% if certifi == 'Yes' %}selected{% endif %}>yes</option>
+                <option value="No" {% if certifi == 'No' %}selected{% endif %}>no</option>
+            </select>
+        </p>
+
+        <p>
+            <label for="price">Price</label>
+            <select name="price">
+                <option value="100" {% if price == '100' %}selected{% endif %}><100</option>
+                <option value="300" {% if price == '300' %}selected{% endif %}><300</option>
+                <option value="500" {% if price == '500' %}selected{% endif %}><500</option>
+                <option value="700" {% if price == '700' %}selected{% endif %}><700</option>
+            </select>
+        </p>
+
+    </form>
+    <button onclick="location.href = '/course/view_section?instrument={{ instrument }}'">Reset filter</button>
+    <br><br>
+    <table style="margin: auto; width: 100%">
+    <tr>
+        <th style="padding-left: 15px; padding-right: 15px">Title</th>
+        <th style="padding-left: 15px; padding-right: 15px">Instrument</th>
+        <th style="padding-left: 15px; padding-right: 15px">Price</th>
+        <th style="padding-left: 15px; padding-right: 15px">Level</th>
+        <th style="padding-left: 15px; padding-right: 15px">Location</th>
+        <th style="padding-left: 15px; padding-right: 15px">Certification</th>
+        <th style="padding-left: 15px; padding-right: 15px">Option</th>
+    </tr>
+    {% for course in courses %}
+        <tr>
+            <td style="padding-left: 15px; padding-right: 15px"><a href="/course/view_course?course_id={{ course.id }}">{{ course.title }}</a></td>
+            <td style="padding-left: 15px; padding-right: 15px">{{ course.instrument }}</td>
+            <td style="padding-left: 15px; padding-right: 15px">{{ course.price }}</td>
+            <td style="padding-left: 15px; padding-right: 15px">{{ course.level }}</td>
+            <td style="padding-left: 15px; padding-right: 15px">{{ course.location }}</td>
+            <td style="padding-left: 15px; padding-right: 15px">{{ course.certification }}</td>
+            <td style="padding-left: 15px; padding-right: 15px">
+                {% if course.user.username == request.session.username %}
+                    <a href="/course/update_course/{{ course.id }}">Update</a>
+                    <a href="/course/delete_course?course_id={{ course.id }}">Delete</a>
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+    </div>
+</body>
+</html>
